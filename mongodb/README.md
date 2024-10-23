@@ -1,6 +1,3 @@
-# data-engineering--2
-
-
 # MONGODB
 1. clonamos el repositorio
 2. instalamos maven si no lo tenemos con "sudo apt install maven"

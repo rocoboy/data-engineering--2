@@ -7,13 +7,12 @@ import javax.persistence.Entity;
 import com.example.exceptions.CuentaException;
 
 @Entity
-
 public class CajaAhorro extends Cuenta {
-	private float tasaInteres;
+	private float tasaDeInteres;
 
 	public CajaAhorro(Cliente cliente, String nroCuenta) {
 		super(cliente, nroCuenta);
-		this.tasaInteres = 1.8f;
+		this.tasaDeInteres = 1.12f;
 	}
 
 	public CajaAhorro() {
@@ -21,24 +20,24 @@ public class CajaAhorro extends Cuenta {
 
 	@Override
 	public int extraer(float importe) throws CuentaException {
-		if(this.saldo > importe) {
-			this.saldo -= importe;
+		if(this.saldoDisponible > importe) {
+			this.saldoDisponible -= importe;
 			Movimiento movimiento = new Movimiento(this, Calendar.getInstance().getTime(), "Extraccion", importe);
 			this.movimientos.add(movimiento);
-			System.out.println("Extracción a la cuenta: " + nroCuenta + " de $" + importe + " pesos\n");
+			System.out.println("Extracción a la cuenta: " + nroCuenta + " de $" + importe + "\n");
 			return movimiento.getNroMovimiento();
 		}
 		else
-			throw new CuentaException("Saldo Insuficiente");
+			throw new CuentaException("No hay saldo suficiente para realizar la extracción");
 	}
 
 	@Override
 	public float disponible() {
-		return this.saldo;
+		return this.saldoDisponible;
 	}
 
-	public float getTasaInteres() {
-		return tasaInteres;
+	public float getTasaDeInteres() {
+		return tasaDeInteres;
 	}
 
 }

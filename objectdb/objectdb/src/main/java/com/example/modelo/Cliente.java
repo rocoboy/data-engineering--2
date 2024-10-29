@@ -10,21 +10,21 @@ import javax.persistence.ManyToMany;
 import com.example.exceptions.CuentaException;
 
 @Entity
-
 public class Cliente {
 
-	@Id
-	private String nroDocumento;
-	@ManyToMany (mappedBy = "clientes")
-	private List<Cuenta> cuentas;
-	private String nombreCompleto;
-	
-	public Cliente(String nombre, String documento) {
-		this.nombreCompleto = nombre;
-		this.nroDocumento = documento;
-		this.cuentas = new ArrayList<>();
-	}
+    @Id
+    private String nroDocumento;
 
+    @ManyToMany(mappedBy = "clientes")
+    private List<Cuenta> cuentas;
+
+    private String nombreCompleto;
+
+    public Cliente(String nombre, String documento) {
+        this.nombreCompleto = nombre;
+        this.nroDocumento = documento;
+        this.cuentas = new ArrayList<Cuenta>();
+    }
 	public float saldoEnCuenta(String nroCuenta) throws CuentaException {
 		for(Cuenta c : cuentas)
 			if(c.soyLaCuenta(nroCuenta))
@@ -78,5 +78,15 @@ public class Cliente {
 
 	private boolean clientePerteneceCuenta(Cuenta cuenta) {
 		return cuentas.contains(cuenta);
+	}
+
+	public String obtenerCuentas(){
+
+		StringBuilder nroCuentas = new StringBuilder();
+		for (Cuenta cuenta : cuentas){
+			nroCuentas.append(cuenta.nroCuenta).append(", ");
+		}
+
+		return nroCuentas.toString();
 	}
 }

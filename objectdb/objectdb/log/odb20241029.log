@@ -1,0 +1,64 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2024-10-29 03:35:26 #1 tool] 
+java.lang.NoClassDefFoundError: javax/persistence/PersistenceException
+	at com.objectdb.o.OSH.<clinit>(OSH.java:104)
+	at com.objectdb.o.SMR.f(SMR.java:177)
+	at com.objectdb.o.TOL.run(TOL.java:117)
+	at com.objectdb.Server.runCommand(Server.java:193)
+	at com.objectdb.Server.run(Server.java:102)
+	at com.objectdb.ServerRunner.main(ServerRunner.java:31)
+Caused by: java.lang.ClassNotFoundException: javax.persistence.PersistenceException
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	... 6 more
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2024-10-29 03:39:03 #1 tool] 
+java.lang.NoClassDefFoundError: javax/persistence/PersistenceException
+	at com.objectdb.o.OSH.<clinit>(OSH.java:104)
+	at com.objectdb.o.SMR.f(SMR.java:177)
+	at com.objectdb.o.TOL.run(TOL.java:117)
+	at com.objectdb.Server.runCommand(Server.java:193)
+	at com.objectdb.Server.run(Server.java:102)
+	at com.objectdb.ServerRunner.main(ServerRunner.java:31)
+Caused by: java.lang.ClassNotFoundException: javax.persistence.PersistenceException
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	... 6 more
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2024-10-29 03:40:14 #1 tool] 
+java.lang.NoClassDefFoundError: javax/persistence/PersistenceException
+	at com.objectdb.o.OSH.<clinit>(OSH.java:104)
+	at com.objectdb.o.SMR.f(SMR.java:177)
+	at com.objectdb.o.TOL.run(TOL.java:117)
+	at com.objectdb.Server.runCommand(Server.java:200)
+	at com.objectdb.Server.run(Server.java:104)
+	at com.objectdb.Server.main(Server.java:63)
+Caused by: java.lang.ClassNotFoundException: javax.persistence.PersistenceException
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	... 6 more
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2024-10-29 03:42:15 #1 tool] 
+java.lang.NoClassDefFoundError: javax/persistence/PersistenceException
+	at com.objectdb.o.OSH.<clinit>(OSH.java:104)
+	at com.objectdb.o.SMR.f(SMR.java:177)
+	at com.objectdb.o.TOL.run(TOL.java:117)
+	at com.objectdb.Server.runCommand(Server.java:200)
+	at com.objectdb.Server.run(Server.java:104)
+	at com.objectdb.Server.main(Server.java:63)
+Caused by: java.lang.ClassNotFoundException: javax.persistence.PersistenceException
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	... 6 more
+

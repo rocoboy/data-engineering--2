@@ -3,21 +3,26 @@ package com.example.modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
 import com.example.exceptions.CuentaException;
+
+@Entity
 
 public class Cliente {
 
-	private static int numerador = 0;
-	private int numero;
-	private String nombre;
-	private String documento;
+	@Id
+	private String nroDocumento;
+	@ManyToMany (mappedBy = "clientes")
 	private List<Cuenta> cuentas;
+	private String nombreCompleto;
 	
 	public Cliente(String nombre, String documento) {
-		this.numero = numerador++;
-		this.nombre = nombre;
-		this.documento = documento;
-		this.cuentas = new ArrayList<Cuenta>();
+		this.nombreCompleto = nombre;
+		this.nroDocumento = documento;
+		this.cuentas = new ArrayList<>();
 	}
 
 	public float saldoEnCuenta(String nroCuenta) throws CuentaException {
@@ -42,29 +47,36 @@ public class Cliente {
 		throw new CuentaException("No existe esa cuenta para ese cliente");
 	}
 	
-	public int getNumero() {
-		return numero;
-	}
-
 	public String getNombre() {
-		return nombre;
+		return nombreCompleto;
 	}
 
 	public String getDocumento() {
-		return documento;
+		return nroDocumento;
 	}
 	
 	public boolean tieneDocumento(String documento) {
-		return this.documento.equalsIgnoreCase(documento);
-	}
-
-	public boolean tieneNumero(int numero) {
-		return this.numero == numero;
+		return this.nroDocumento.equalsIgnoreCase(documento);
 	}
 
 	public void agregarCuenta(Cuenta cuenta) {
-		cuentas.add(cuenta);
-		cuenta.agregarClienteCuenta(this);
+		if (clientePerteneceCuenta(cuenta)) {
+			System.out.println("\nEl cliente ya esta asociado a esta cuenta! \n");
+		} else {
+			cuentas.add(cuenta);
+			cuenta.agregarClienteCuenta(this);
+		}
 	}
-	
+
+	public void vincularCuenta(Cuenta cuenta) {
+		cuentas.add(cuenta);
+	}
+
+	public void setNombre(String nombre) {
+		this.nombreCompleto = nombre;
+	}
+
+	private boolean clientePerteneceCuenta(Cuenta cuenta) {
+		return cuentas.contains(cuenta);
+	}
 }

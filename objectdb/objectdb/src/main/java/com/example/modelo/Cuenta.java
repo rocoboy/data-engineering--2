@@ -5,33 +5,51 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
 import com.example.exceptions.CuentaException;
+
+@Entity
 
 public abstract class Cuenta {
 
 	protected String nroCuenta;
 	protected float saldo;
+	
+	@ManyToMany
 	protected List<Cliente> clientes;
+
+	@OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL, orphanRemoval = true)
 	protected List<Movimiento> movimientos;
+
+	protected Cuenta() {
+		this.clientes = new ArrayList<>();
+		this.movimientos = new ArrayList<>();
+	}
 	
-	
-	public Cuenta(Cliente cliente) {
-		this.nroCuenta = null;
+	public Cuenta(Cliente cliente, String nroCuenta) {
+		this.clientes = new ArrayList<>();
+		this.movimientos = new ArrayList<>();
+		this.nroCuenta = nroCuenta;
 		this.saldo = 0;
-		this.clientes = new ArrayList<Cliente>();
 		this.clientes.add(cliente);
-		this.movimientos = new ArrayList<Movimiento>();
+		cliente.vincularCuenta(this);
 	}
 
 	public void agregarClienteCuenta(Cliente cliente){
 		this.clientes.add(cliente);
+		System.out.println("Cuenta asociada a cliente: " + cliente.getNombre());
 	}
 	
 	public int depositar(float importe) {
 		if(importe > 0) {
 			this.saldo += importe;
-			Movimiento movimiento = new Movimiento(Calendar.getInstance().getTime(), "Deposito", importe);
+			Movimiento movimiento = new Movimiento(this, Calendar.getInstance().getTime(), "Deposito", importe);
 			movimientos.add(movimiento);
+			System.out.println("Se ha depositado en: " + this.nroCuenta + " $" + importe + " pesos\n");
 			return movimiento.getNroMovimiento();
 		}
 		return 0;
@@ -46,15 +64,22 @@ public abstract class Cuenta {
 	public abstract float disponible();
 	
 	public List<Movimiento> verDepositosEntreFechas(Date fechaDesde, Date fechaHasta){
-		List<Movimiento> resultado = new ArrayList<Movimiento>();
+		List<Movimiento> resultado = new ArrayList<>();
 		for(Movimiento m : movimientos)
 			if(m.soyDeposito())
 				resultado.add(m);
 		return resultado;
 	}
 	
+	public List<Cliente> verClientesCuenta() {
+		List<Cliente> resultado = new ArrayList<>();
+		for (Cliente c : clientes)
+			resultado.add(c);
+		return resultado;
+	}
+
 	public List<Movimiento> verExtraccionesEntreFechas(Date fechaDesde, Date fechaHasta){
-		List<Movimiento> resultado = new ArrayList<Movimiento>();
+		List<Movimiento> resultado = new ArrayList<>();
 		for(Movimiento m : movimientos)
 			if(!m.soyDeposito())
 				resultado.add(m);
@@ -66,7 +91,7 @@ public abstract class Cuenta {
 	}
 
 	public List<Movimiento> movimientosDelMes(int mes) {
-		List<Movimiento> resultado = new ArrayList<Movimiento>();
+		List<Movimiento> resultado = new ArrayList<>();
 		for(Movimiento m : movimientos)
 			if(m.soyDeEseMes(mes))
 				resultado.add(m);
@@ -75,5 +100,9 @@ public abstract class Cuenta {
 
 	public boolean tieneNumero(String nroCuenta) {
 		return this.nroCuenta.equalsIgnoreCase(nroCuenta);
+	}
+
+	public int getMovimientos () {
+		return movimientos.size();
 	}
 }

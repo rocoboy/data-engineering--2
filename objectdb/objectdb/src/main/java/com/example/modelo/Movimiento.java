@@ -2,26 +2,46 @@ package com.example.modelo;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 import com.example.views.MovimientoView;
 
+@Entity
 public class Movimiento {
 	
-	private static int numerador = 0;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@ManyToOne
+	private Cuenta cuenta;
 	private int nroMovimiento;
 	private Date fecha;
 	private String tipoMovimiento;
 	private float importe;
-	
-	public Movimiento(Date fecha, String tipoMovimiento, float importe) {
-		this.nroMovimiento = numerador++;
+
+	public Movimiento(Cuenta cuenta, Date fecha, String tipoMovimiento, float importe) {
+		this.cuenta = cuenta;
+		this.nroMovimiento = cuenta.getMovimientos();
 		this.fecha = fecha;
 		this.tipoMovimiento = tipoMovimiento;
 		this.importe = importe;
 	}
 
+	public Movimiento() {
+	}
+
 	public int getNroMovimiento() {
 		return this.nroMovimiento;
 	}
+
+	public String getTipoMovimiento() {
+		return this.tipoMovimiento;
+	}
+
 	public boolean soyDeEseMes(int mes) {
 		 return this.fecha.getMonth() == mes;
 	}
